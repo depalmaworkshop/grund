@@ -1,55 +1,50 @@
 # Grund
 
-The foundation for DePalma Workshop's design system.
+DePalma Workshop's design system.
 
 ## About
 
-Grund (Swedish for "foundation") is the design token system being built for DePalma Workshop. It will provide a single source of truth for spacing, colors, typography, and component styles across our applications.
-
-## Goals
-
-- **Design Tokens** - Single source of truth for design decisions
-- **3-Layer Architecture** - Primitive → Semantic → Component token structure
-- **Responsive Support** - Values that adapt across breakpoints
-- **Type-Safe** - Full TypeScript support
+Grund (Swedish for "foundation") provides design tokens, component specifications, and patterns for DePalma Workshop applications.
 
 ## Status
 
-🚧 **In Development**
+🚧 **In Development** - Not yet published
 
-Currently being built as part of project p-006-design-system-tokens.
-
-## Architecture
+## Structure
 
 ```
-┌─────────────────┐    ┌──────────────────────────┐    ┌─────────────────┐
-│   Primitives    │───▶│       Semantics          │───▶│   Components    │
-│  (Raw values)   │    │   (Meaningful names)     │    │ (Specific use)  │
-└─────────────────┘    └──────────────────────────┘    └─────────────────┘
+grund/
+├── src/
+│   └── tokens.ts      # Design tokens (source of truth)
+└── docs/
+    ├── getting-started/
+    ├── foundations/   # spacing, color, typography, breakpoints, motion, etc.
+    ├── components/    # button, select, text-input, modal, toast, etc.
+    └── patterns/      # forms, loading-states, navigation, etc.
 ```
 
-Primitives define raw values. Semantics give meaning. Components specify exact usage.
+## Token Architecture
 
-## Planned Token Categories
+**Prefix:** `gds` (Grund Design System)
 
-### Foundation
-- Spacing
-- Colors
-- Typography
-- Radius
-- Elevation
-- Motion
+```
+Primitives → Semantics → Components
+(raw values)   (meaning)    (specific use)
+```
 
-### Components
-- Button
-- Select
-- Text Input
-- Number Input
-- Progress Indicator
+### Foundations (11 categories)
+color, typography, spacing, sizing, breakpoints, radius, prominence, motion, zIndex, fluid, iconography
+
+### Components (7 documented)
+button, select, text-input, number-input, progress-indicator, toast, modal
+
+## Usage
+
+*Coming soon - will be available as NPM package `@depalmaworkshop/grund`*
 
 ## License
 
-Proprietary - See [LICENSE](LICENSE) for details.
+Proprietary - See [LICENSE](LICENSE)
 
 ---
 
