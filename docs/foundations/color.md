@@ -3,9 +3,9 @@ title: Color
 description: Brand and UI color palette
 status: draft
 order: 2
-token_prefix: dpws-color
+token_prefix: gds-color
 created: 2026-01-21T12:05
-updated: 2026-01-21T12:05
+updated: 2026-05-14T19:44
 ---
 # Color
 

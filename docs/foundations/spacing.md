@@ -3,9 +3,9 @@ title: Spacing
 description: Consistent spacing scale based on Tailwind
 status: draft
 order: 1
-token_prefix: dpws-space
+token_prefix: gds-space
 created: 2026-01-21T12:05
-updated: 2026-01-21T12:05
+updated: 2026-05-14T19:44
 ---
 # Spacing
 

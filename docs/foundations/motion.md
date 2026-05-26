@@ -3,9 +3,9 @@ title: Motion
 description: Animation timing, easing, and transitions
 status: draft
 order: 7
-token_prefix: dpws-motion
+token_prefix: gds-motion
 created: 2026-01-21T12:05
-updated: 2026-01-21T12:05
+updated: 2026-05-14T19:44
 ---
 # Motion
 

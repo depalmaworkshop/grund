@@ -3,9 +3,9 @@ title: Breakpoints
 description: Responsive design breakpoints
 status: draft
 order: 4
-token_prefix: dpws-breakpoint
+token_prefix: gds-breakpoint
 created: 2026-01-21T12:05
-updated: 2026-01-21T12:05
+updated: 2026-05-14T19:44
 ---
 # Breakpoints
 
