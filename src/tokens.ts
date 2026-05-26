@@ -192,11 +192,12 @@ export const color = {
   semantic: {
     // Text colors
     text: {
-      primary: 'text-white',              // var(--gds-color-text-primary)
-      secondary: 'text-gray-300',         // var(--gds-color-text-secondary)
+      primary: 'text-[var(--gds-color-text-primary)]',    // Auto-switches: light #171717, dark #ededed
+      onFooter: 'text-[var(--gds-color-text-on-footer)]', // Text on footer background
+      secondary: 'text-gray-300',         // var(--gds-color-text-secondary) - TODO: add light/dark
       tertiary: 'text-gray-500',          // var(--gds-color-text-tertiary)
       disabled: 'text-gray-500',          // var(--gds-color-text-disabled)
-      inverse: 'text-gray-900',           // var(--gds-color-text-inverse) (TODO: for light backgrounds)
+      inverse: 'text-gray-900',           // var(--gds-color-text-inverse) (for light backgrounds)
 
       // Interactive text
       link: {
@@ -208,16 +209,17 @@ export const color = {
 
     // Background colors
     background: {
-      base: 'TODO',                       // var(--gds-color-bg-base) - Main app background
-      surface: 'bg-slate-800',            // var(--gds-color-bg-surface) - Cards, modals
-      elevated: 'TODO',                   // var(--gds-color-bg-elevated) - Raised elements
-      overlay: 'bg-black/50',             // var(--gds-color-bg-overlay) - Modal backdrops
+      base: 'bg-[var(--gds-color-bg-base)]',           // Main app background (light: #fafafa, dark: #0a0a0a)
+      footer: 'bg-[var(--gds-color-bg-footer)]',       // Footer background (light: #0a0a0a, dark: #171717)
+      surface: 'bg-slate-800',                          // Cards, modals (TODO: add light/dark variants)
+      elevated: 'TODO',                                 // Raised elements
+      overlay: 'bg-black/50',                           // Modal backdrops
 
       // Glass morphism (current pattern)
       glass: {
-        light: 'bg-white/10',             // var(--gds-color-bg-glass-light)
-        medium: 'bg-white/20',            // var(--gds-color-bg-glass-medium)
-        heavy: 'TODO',                    // var(--gds-color-bg-glass-heavy)
+        light: 'bg-white/10',
+        medium: 'bg-white/20',
+        heavy: 'TODO',
       },
     },
 
