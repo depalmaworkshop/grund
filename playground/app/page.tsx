@@ -26,6 +26,9 @@ import {
   type StatusMap,
   type Counts,
 } from "./_components/TokenView";
+import { SchemeToggle } from "./_components/SchemeToggle";
+import { ButtonShowcase } from "./_components/ButtonShowcase";
+import { OptionsPopoverDemo } from "./_components/OptionsPopoverDemo";
 
 type Section = {
   title: string;
@@ -44,6 +47,7 @@ const GENERATED_SECTIONS: Section[] = [
   { title: "Radius", data: generated.radius, visual: "radius", basePath: ["radius"] },
   { title: "Type & elevation", data: { font: generated.font, shadow: generated.shadow } },
   { title: "Popover component tokens", data: generated.popover, basePath: ["popover"] },
+  { title: "Button component tokens", data: generated.button, basePath: ["button"] },
 ];
 
 // Foundations + component token groups, in the order they appear in tokens.ts.
@@ -76,12 +80,13 @@ function sumCounts(sections: Section[], statusMap?: StatusMap): Counts {
       return {
         total: acc.total + c.total,
         set: acc.set + c.set,
+        candidate: acc.candidate + c.candidate,
         placeholder: acc.placeholder + c.placeholder,
         todo: acc.todo + c.todo,
         draft: acc.draft + c.draft,
       };
     },
-    { total: 0, set: 0, placeholder: 0, todo: 0, draft: 0 }
+    { total: 0, set: 0, candidate: 0, placeholder: 0, todo: 0, draft: 0 }
   );
 }
 
@@ -89,14 +94,18 @@ export default function Page() {
   const gen = sumCounts(GENERATED_SECTIONS, generatedStatus as StatusMap);
   const hand = sumCounts([...SECTIONS, ...COMPONENT_SECTIONS]);
   const total = gen.total + hand.total;
-  const defined = gen.set + gen.placeholder + hand.set + hand.placeholder;
+  const defined =
+    gen.set + gen.candidate + gen.placeholder + hand.set + hand.candidate + hand.placeholder;
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-12">
       <header className="mb-8 border-b border-border pb-8">
-        <p className="mb-2 text-[13px] font-medium uppercase tracking-widest text-muted">
-          Grund · Design System
-        </p>
+        <div className="mb-2 flex items-start justify-between gap-4">
+          <p className="text-[13px] font-medium uppercase tracking-widest text-muted">
+            Grund · Design System
+          </p>
+          <SchemeToggle />
+        </div>
         <h1 className="text-3xl font-bold tracking-tight">Token Gallery</h1>
         <p className="mt-3 max-w-2xl text-muted">
           A live render of the tokens in <code className="font-mono text-[13px]">src/tokens.ts</code>{" "}
@@ -119,7 +128,7 @@ export default function Page() {
         label="DTCG substrate (generated)"
         sections={GENERATED_SECTIONS}
         statusMap={generatedStatus as StatusMap}
-        note="Generated from tokens/*.json by Style Dictionary → src/tokens.css (--gds-* vars, light + dark) + src/tokens.generated.ts. The slots are the structure the Share/options-popover Pattern needs; values are TODO until defined deliberately. Everything below is still hand-authored, migrating one category at a time."
+        note="Generated from tokens/*.json by Style Dictionary → src/tokens.css (--gds-* vars, light + dark) + src/tokens.generated.ts. The popover + button slots are now populated — colours as candidate (harvested from the live sites, under review), convergent structural values as set. Everything below is still hand-authored, migrating one category at a time."
       />
 
       <SectionGroup label="Foundations (hand-authored)" sections={SECTIONS} />
@@ -130,21 +139,26 @@ export default function Page() {
         note="Component-layer token sets. These reference foundation/semantic values."
       />
 
-      {/* Stub homes for the layers Grund will grow into. */}
       <div className="mt-12">
-        <h2 className="mb-4 text-xl font-bold tracking-tight">Components</h2>
-        <StubCard>
-          Real React components (Button first) will render here once built — the
-          interactive counterpart to the component tokens above.
-        </StubCard>
+        <h2 className="mb-1 text-xl font-bold tracking-tight">Components</h2>
+        <p className="mb-4 text-[13px] text-muted">
+          Real React components consuming the <code className="font-mono">--gds-*</code>{" "}
+          tokens. Try the colour-scheme toggle — they move with it.
+        </p>
+        <ShowcaseCard>
+          <ButtonShowcase />
+        </ShowcaseCard>
       </div>
 
       <div className="mt-12">
-        <h2 className="mb-4 text-xl font-bold tracking-tight">Patterns</h2>
-        <StubCard>
-          Content-less compositions (the Share / options-popover Pattern first)
-          will be exercised here once built.
-        </StubCard>
+        <h2 className="mb-1 text-xl font-bold tracking-tight">Patterns</h2>
+        <p className="mb-4 text-[13px] text-muted">
+          Content-less compositions. The Share / options-popover Pattern: a ghost
+          Button trigger opens a floating, dismissable menu of option rows.
+        </p>
+        <ShowcaseCard>
+          <OptionsPopoverDemo />
+        </ShowcaseCard>
       </div>
     </main>
   );
@@ -182,10 +196,8 @@ function SectionGroup({
   );
 }
 
-function StubCard({ children }: { children: React.ReactNode }) {
+function ShowcaseCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-dashed border-border bg-surface/30 p-5 text-sm text-muted">
-      {children}
-    </div>
+    <div className="rounded-xl border border-border bg-surface/40 p-5">{children}</div>
   );
 }

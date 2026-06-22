@@ -13,7 +13,7 @@ export type Visual = "color" | "spacing" | "radius" | "none";
 //   token — is the slot itself decided?   confirmed | draft
 //   value — is the value defined?          set | placeholder | todo
 export type TokenStatus = "confirmed" | "draft";
-export type ValueStatus = "set" | "placeholder" | "todo";
+export type ValueStatus = "set" | "candidate" | "placeholder" | "todo";
 export type Status = { token: TokenStatus; value: ValueStatus };
 export type StatusMap = Record<string, Status>;
 
@@ -50,6 +50,7 @@ function leafStatus(
 export type Counts = {
   total: number;
   set: number;
+  candidate: number;
   placeholder: number;
   todo: number;
   draft: number;
@@ -65,6 +66,7 @@ export function summarize(
     return {
       total: 1,
       set: s.value === "set" ? 1 : 0,
+      candidate: s.value === "candidate" ? 1 : 0,
       placeholder: s.value === "placeholder" ? 1 : 0,
       todo: s.value === "todo" ? 1 : 0,
       draft: s.token === "draft" ? 1 : 0,
@@ -76,12 +78,13 @@ export function summarize(
       return {
         total: acc.total + c.total,
         set: acc.set + c.set,
+        candidate: acc.candidate + c.candidate,
         placeholder: acc.placeholder + c.placeholder,
         todo: acc.todo + c.todo,
         draft: acc.draft + c.draft,
       };
     },
-    { total: 0, set: 0, placeholder: 0, todo: 0, draft: 0 }
+    { total: 0, set: 0, candidate: 0, placeholder: 0, todo: 0, draft: 0 }
   );
 }
 
@@ -91,6 +94,7 @@ export function summarize(
 
 const VALUE_STYLE: Record<ValueStatus, string> = {
   set: "bg-emerald-50 text-emerald-700 ring-1 ring-inset ring-emerald-600/20 dark:bg-emerald-500/10 dark:text-emerald-400 dark:ring-emerald-400/20",
+  candidate: "bg-teal-100 text-teal-700 dark:bg-teal-500/15 dark:text-teal-300",
   placeholder: "bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-400",
   todo: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400",
 };
@@ -140,7 +144,10 @@ export function StatusLegend() {
           <ValuePill status="set" /> confirmed / final
         </span>
         <span className="flex items-center gap-2">
-          <ValuePill status="placeholder" /> provisional, will change
+          <ValuePill status="candidate" /> real proposal, under review
+        </span>
+        <span className="flex items-center gap-2">
+          <ValuePill status="placeholder" /> temporary stand-in
         </span>
         <span className="flex items-center gap-2">
           <ValuePill status="todo" /> not yet defined
@@ -153,6 +160,7 @@ export function StatusLegend() {
 function StatusCounts({ counts }: { counts: Counts }) {
   const parts: string[] = [];
   if (counts.set) parts.push(`${counts.set} set`);
+  if (counts.candidate) parts.push(`${counts.candidate} candidate`);
   if (counts.placeholder) parts.push(`${counts.placeholder} placeholder`);
   if (counts.todo) parts.push(`${counts.todo} todo`);
   if (counts.draft) parts.push(`${counts.draft} draft`);
