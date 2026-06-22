@@ -1,0 +1,16 @@
+{
+  "$description": "Dark-scheme overrides for the default theme. Only the semantic tokens expected to differ in dark are listed; values TODO until defined.",
+  "color": {
+    "popover": {
+      "surface":       { "$value": "TODO", "$type": "color" },
+      "border":        { "$value": "TODO", "$type": "color" },
+      "text":          { "$value": "TODO", "$type": "color" },
+      "text-muted":    { "$value": "TODO", "$type": "color" },
+      "item-hover-bg": { "$value": "TODO", "$type": "color" }
+    },
+    "focus-ring":      { "$value": "TODO", "$type": "color" }
+  },
+  "shadow": {
+    "popover": { "$value": "TODO", "$type": "shadow" }
+  }
+}

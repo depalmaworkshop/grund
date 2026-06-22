@@ -1,0 +1,34 @@
+{
+  "$description": "Default-theme semantic tokens. Slots are the structure we know the Share/options-popover Pattern needs; values are TODO until defined deliberately (see work references for the harvested starting points).",
+  "color": {
+    "popover": {
+      "surface":       { "$value": "TODO", "$type": "color" },
+      "border":        { "$value": "TODO", "$type": "color" },
+      "text":          { "$value": "TODO", "$type": "color" },
+      "text-muted":    { "$value": "TODO", "$type": "color" },
+      "item-hover-bg": { "$value": "TODO", "$type": "color" }
+    },
+    "focus-ring":      { "$value": "TODO", "$type": "color" }
+  },
+  "space": {
+    "popover": {
+      "padding": { "$value": "TODO", "$type": "dimension" },
+      "item-x":  { "$value": "TODO", "$type": "dimension" },
+      "item-y":  { "$value": "TODO", "$type": "dimension" },
+      "gap":     { "$value": "TODO", "$type": "dimension" }
+    }
+  },
+  "radius": {
+    "popover":      { "$value": "TODO", "$type": "dimension" },
+    "popover-item": { "$value": "TODO", "$type": "dimension" }
+  },
+  "font": {
+    "popover": {
+      "size":   { "$value": "TODO", "$type": "dimension" },
+      "weight": { "$value": "TODO", "$type": "fontWeight" }
+    }
+  },
+  "shadow": {
+    "popover": { "$value": "TODO", "$type": "shadow" }
+  }
+}

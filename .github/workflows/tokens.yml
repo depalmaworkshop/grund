@@ -1,0 +1,29 @@
+name: tokens
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build tokens
+        run: npm run build:tokens
+
+      - name: Verify generated token artefacts are committed and current
+        run: |
+          if ! git diff --exit-code -- src/tokens.css src/tokens.generated.ts src/tokens.allowlist.json; then
+            echo "::error::Generated token artefacts are out of date. Run 'npm run build:tokens' and commit the result."
+            exit 1
+          fi

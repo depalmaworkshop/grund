@@ -15,19 +15,42 @@ import {
   button,
   input,
   select,
+  generated,
+  generatedStatus,
 } from "@grund/tokens";
-import { TokenSection, countLeaves, type Visual } from "./_components/TokenView";
+import {
+  TokenSection,
+  StatusLegend,
+  summarize,
+  type Visual,
+  type StatusMap,
+  type Counts,
+} from "./_components/TokenView";
 
-// Foundations + component token groups, in the order they appear in tokens.ts.
-const SECTIONS: {
+type Section = {
   title: string;
   data: unknown;
   visual?: Visual;
   note?: string;
-}[] = [
-  { title: "Color", data: color, visual: "color", note: "Primitive palette is real (slate + Tailwind bases); brand colours and several semantic roles are TODO." },
+  basePath?: string[];
+};
+
+// The DTCG substrate output (generated from tokens/*.json via Style Dictionary)
+// — the first slice on the new pipeline: the popover seed. basePath aligns each
+// slice with the dotted keys in generatedStatus.
+const GENERATED_SECTIONS: Section[] = [
+  { title: "Colour", data: generated.color, visual: "color", basePath: ["color"] },
+  { title: "Spacing", data: generated.space, visual: "spacing", basePath: ["space"] },
+  { title: "Radius", data: generated.radius, visual: "radius", basePath: ["radius"] },
+  { title: "Type & elevation", data: { font: generated.font, shadow: generated.shadow } },
+  { title: "Popover component tokens", data: generated.popover, basePath: ["popover"] },
+];
+
+// Foundations + component token groups, in the order they appear in tokens.ts.
+const SECTIONS: Section[] = [
+  { title: "Color", data: color, visual: "color" },
   { title: "Typography", data: typography },
-  { title: "Spacing", data: spacing, visual: "spacing", note: "Full Tailwind scale — [rem, px, css-var]." },
+  { title: "Spacing", data: spacing, visual: "spacing" },
   { title: "Sizing", data: sizing },
   { title: "Breakpoints", data: breakpoints },
   { title: "Radius", data: radius, visual: "radius" },
@@ -38,7 +61,7 @@ const SECTIONS: {
   { title: "Iconography", data: iconography },
 ];
 
-const COMPONENT_SECTIONS: { title: string; data: unknown }[] = [
+const COMPONENT_SECTIONS: Section[] = [
   { title: "Toast", data: toast },
   { title: "Modal", data: modal },
   { title: "Button", data: button },
@@ -46,45 +69,63 @@ const COMPONENT_SECTIONS: { title: string; data: unknown }[] = [
   { title: "Select", data: select },
 ];
 
-function totalTodos(groups: { data: unknown }[]) {
-  return groups.reduce(
-    (acc, g) => {
-      const c = countLeaves(g.data);
-      return { total: acc.total + c.total, todo: acc.todo + c.todo };
+function sumCounts(sections: Section[], statusMap?: StatusMap): Counts {
+  return sections.reduce<Counts>(
+    (acc, s) => {
+      const c = summarize(s.data, statusMap, s.basePath ?? []);
+      return {
+        total: acc.total + c.total,
+        set: acc.set + c.set,
+        placeholder: acc.placeholder + c.placeholder,
+        todo: acc.todo + c.todo,
+        draft: acc.draft + c.draft,
+      };
     },
-    { total: 0, todo: 0 }
+    { total: 0, set: 0, placeholder: 0, todo: 0, draft: 0 }
   );
 }
 
 export default function Page() {
-  const all = [...SECTIONS, ...COMPONENT_SECTIONS];
-  const { total, todo } = totalTodos(all);
+  const gen = sumCounts(GENERATED_SECTIONS, generatedStatus as StatusMap);
+  const hand = sumCounts([...SECTIONS, ...COMPONENT_SECTIONS]);
+  const total = gen.total + hand.total;
+  const defined = gen.set + gen.placeholder + hand.set + hand.placeholder;
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-12">
-      <header className="mb-10 border-b border-border pb-8">
+      <header className="mb-8 border-b border-border pb-8">
         <p className="mb-2 text-[13px] font-medium uppercase tracking-widest text-muted">
           Grund · Design System
         </p>
         <h1 className="text-3xl font-bold tracking-tight">Token Gallery</h1>
         <p className="mt-3 max-w-2xl text-muted">
-          A live render of the current tokens in <code className="font-mono text-[13px]">src/tokens.ts</code>.
-          What&rsquo;s defined vs. still a placeholder, straight from source — the
-          front door for the Grund design system.
+          A live render of the tokens in <code className="font-mono text-[13px]">src/tokens.ts</code>{" "}
+          and the generated DTCG substrate. Each token carries a status so the
+          maturity of the system is visible at a glance.
         </p>
         <p className="mt-4 text-sm">
-          <span className="font-semibold">{total - todo}</span> of{" "}
-          <span className="font-semibold">{total}</span> token values defined ·{" "}
+          <span className="font-semibold">{defined}</span> of{" "}
+          <span className="font-semibold">{total}</span> tokens carry a value ·{" "}
           <span className="font-semibold text-amber-600 dark:text-amber-400">
-            {todo} remaining (TODO)
+            {total - defined} still TODO
           </span>
         </p>
+        <div className="mt-5">
+          <StatusLegend />
+        </div>
       </header>
 
-      <SectionGroup label="Foundations" sections={SECTIONS} />
+      <SectionGroup
+        label="DTCG substrate (generated)"
+        sections={GENERATED_SECTIONS}
+        statusMap={generatedStatus as StatusMap}
+        note="Generated from tokens/*.json by Style Dictionary → src/tokens.css (--gds-* vars, light + dark) + src/tokens.generated.ts. The slots are the structure the Share/options-popover Pattern needs; values are TODO until defined deliberately. Everything below is still hand-authored, migrating one category at a time."
+      />
+
+      <SectionGroup label="Foundations (hand-authored)" sections={SECTIONS} />
 
       <SectionGroup
-        label="Component tokens"
+        label="Component tokens (hand-authored)"
         sections={COMPONENT_SECTIONS}
         note="Component-layer token sets. These reference foundation/semantic values."
       />
@@ -113,10 +154,12 @@ function SectionGroup({
   label,
   sections,
   note,
+  statusMap,
 }: {
   label: string;
-  sections: { title: string; data: unknown; visual?: Visual; note?: string }[];
+  sections: Section[];
   note?: string;
+  statusMap?: StatusMap;
 }) {
   return (
     <div className="mt-12 first:mt-0">
@@ -130,6 +173,8 @@ function SectionGroup({
             data={s.data}
             visual={s.visual}
             note={s.note}
+            statusMap={statusMap}
+            basePath={s.basePath}
           />
         ))}
       </div>

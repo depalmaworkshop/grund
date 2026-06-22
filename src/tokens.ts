@@ -89,6 +89,21 @@
  */
 
 // =============================================================================
+// GENERATED TOKENS  (source of truth: tokens/*.json → Style Dictionary)
+// =============================================================================
+// The popover token set — and the primitives/semantics it builds on — is
+// generated from the DTCG sources in tokens/ by `npm run build:tokens`, which
+// also emits src/tokens.css (the --gds-* CSS variables) and the overridable-
+// semantic allowlist. Import the values from here as `generated`; do NOT
+// hand-edit src/tokens.generated.ts.
+//
+// Everything BELOW this block is still HAND-AUTHORED. Each category migrates
+// into tokens/*.json one at a time; until it does, the hand-authored value
+// below remains the source of truth for that category.
+// =============================================================================
+export { generated, generatedStatus } from "./tokens.generated";
+
+// =============================================================================
 // 1. COLOR TOKENS
 // =============================================================================
 /**
