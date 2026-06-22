@@ -1,16 +1,32 @@
 {
-  "$description": "Dark-scheme overrides for the default theme. Only the semantic tokens expected to differ in dark are listed; values TODO until defined.",
+  "$description": "Dark-scheme overrides for the default theme. Only the semantic tokens expected to differ in dark are listed (colours + shadow). Colours are CANDIDATE; shadow geometry is SET. The neutral anchors invert: paper-on-ink instead of ink-on-paper.",
   "color": {
     "popover": {
-      "surface":       { "$value": "TODO", "$type": "color" },
-      "border":        { "$value": "TODO", "$type": "color" },
-      "text":          { "$value": "TODO", "$type": "color" },
-      "text-muted":    { "$value": "TODO", "$type": "color" },
-      "item-hover-bg": { "$value": "TODO", "$type": "color" }
+      "surface":       { "$value": "{color.ink}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "border":        { "$value": "color-mix(in srgb, {color.paper} 16%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "text":          { "$value": "{color.paper}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "text-muted":    { "$value": "color-mix(in srgb, {color.paper} 62%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "item-hover-bg": { "$value": "color-mix(in srgb, {color.paper} 10%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
     },
-    "focus-ring":      { "$value": "TODO", "$type": "color" }
+    "focus-ring":      { "$value": "#60a5fa", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+    "button": {
+      "primary": {
+        "bg":       { "$value": "{color.paper}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "text":     { "$value": "{color.ink}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "bg-hover": { "$value": "color-mix(in srgb, {color.paper} 88%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
+      },
+      "ghost": {
+        "text":     { "$value": "{color.paper}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "border":   { "$value": "color-mix(in srgb, {color.paper} 22%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "bg-hover": { "$value": "color-mix(in srgb, {color.paper} 10%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
+      }
+    }
   },
   "shadow": {
-    "popover": { "$value": "TODO", "$type": "shadow" }
+    "popover": {
+      "$value": "0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5)",
+      "$type": "shadow",
+      "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } }
+    }
   }
 }

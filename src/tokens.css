@@ -4,63 +4,107 @@
  */
 
 :root {
-  --gds-color-brand-tobacco: #E59500; /** Confirmed DePalma brand accent (tobacco). Earmarked for the Button primary action. */
-  --gds-color-popover-surface: TODO;
-  --gds-color-popover-border: TODO;
-  --gds-color-popover-text: TODO;
-  --gds-color-popover-text-muted: TODO;
-  --gds-color-popover-item-hover-bg: TODO;
-  --gds-color-focus-ring: TODO;
+  --gds-color-ink: #231f20; /** Near-black neutral anchor (theme-neutral primitive). Warm, not pure black. Value is a candidate — may change in the real palette pass. */
+  --gds-color-paper: #f5f3f2; /** Near-white neutral anchor (theme-neutral primitive). Warm, not pure white. Value is a candidate — may change in the real palette pass. */
+  --gds-color-brand-tobacco: #E59500; /** Confirmed DePalma brand accent (tobacco). A logo / identity accent — not a component fill colour. */
+  --gds-color-focus-ring: #3b82f6;
   --gds-font-family-sans: var(--font-geist-sans); /** Confirmed slot (the sans typeface). Value is a placeholder (Geist) pending the type decision. */
-  --gds-font-popover-size: TODO;
-  --gds-font-popover-weight: TODO;
-  --gds-space-popover-padding: TODO;
-  --gds-space-popover-item-x: TODO;
-  --gds-space-popover-item-y: TODO;
-  --gds-space-popover-gap: TODO;
-  --gds-radius-popover: TODO;
-  --gds-radius-popover-item: TODO;
-  --gds-shadow-popover: TODO;
-  --gds-popover-background: var(--gds-color-popover-surface);
-  --gds-popover-border-color: var(--gds-color-popover-border);
-  --gds-popover-text-color: var(--gds-color-popover-text);
+  --gds-font-popover-size: 14px;
+  --gds-font-popover-weight: 500;
+  --gds-font-button-size: 14px;
+  --gds-font-button-weight: 500;
+  --gds-space-popover-padding: 12px;
+  --gds-space-popover-item-x: 12px;
+  --gds-space-popover-item-y: 8px;
+  --gds-space-popover-gap: 4px;
+  --gds-space-button-padding-x: 16px;
+  --gds-space-button-padding-y: 8px;
+  --gds-space-button-gap: 8px;
+  --gds-radius-popover: 8px;
+  --gds-radius-popover-item: 6px;
+  --gds-radius-button: 6px;
+  --gds-shadow-popover: 0 10px 15px -3px rgb(35 31 32 / 0.10), 0 4px 6px -4px rgb(35 31 32 / 0.10);
+  --gds-color-popover-surface: var(--gds-color-paper);
+  --gds-color-popover-border: color-mix(in srgb, var(--gds-color-ink) 12%, transparent);
+  --gds-color-popover-text: var(--gds-color-ink);
+  --gds-color-popover-text-muted: color-mix(in srgb, var(--gds-color-ink) 62%, transparent);
+  --gds-color-popover-item-hover-bg: color-mix(in srgb, var(--gds-color-ink) 6%, transparent);
+  --gds-color-button-primary-bg: var(--gds-color-ink);
+  --gds-color-button-primary-text: var(--gds-color-paper);
+  --gds-color-button-primary-bg-hover: color-mix(in srgb, var(--gds-color-ink) 88%, transparent);
+  --gds-color-button-ghost-text: var(--gds-color-ink);
+  --gds-color-button-ghost-border: color-mix(in srgb, var(--gds-color-ink) 18%, transparent);
+  --gds-color-button-ghost-bg-hover: color-mix(in srgb, var(--gds-color-ink) 6%, transparent);
   --gds-popover-radius: var(--gds-radius-popover);
   --gds-popover-padding: var(--gds-space-popover-padding);
   --gds-popover-shadow: var(--gds-shadow-popover);
   --gds-popover-item-padding-x: var(--gds-space-popover-item-x);
   --gds-popover-item-padding-y: var(--gds-space-popover-item-y);
   --gds-popover-item-radius: var(--gds-radius-popover-item);
+  --gds-button-radius: var(--gds-radius-button);
+  --gds-button-padding-x: var(--gds-space-button-padding-x);
+  --gds-button-padding-y: var(--gds-space-button-padding-y);
+  --gds-button-gap: var(--gds-space-button-gap);
+  --gds-button-font-size: var(--gds-font-button-size);
+  --gds-button-font-weight: var(--gds-font-button-weight);
+  --gds-popover-background: var(--gds-color-popover-surface);
+  --gds-popover-border-color: var(--gds-color-popover-border);
+  --gds-popover-text-color: var(--gds-color-popover-text);
   --gds-popover-item-hover-bg: var(--gds-color-popover-item-hover-bg);
+  --gds-button-primary-background: var(--gds-color-button-primary-bg);
+  --gds-button-primary-text-color: var(--gds-color-button-primary-text);
+  --gds-button-primary-background-hover: var(--gds-color-button-primary-bg-hover);
+  --gds-button-ghost-text-color: var(--gds-color-button-ghost-text);
+  --gds-button-ghost-border-color: var(--gds-color-button-ghost-border);
+  --gds-button-ghost-background-hover: var(--gds-color-button-ghost-bg-hover);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-  --gds-color-popover-surface: TODO;
-  --gds-color-popover-border: TODO;
-  --gds-color-popover-text: TODO;
-  --gds-color-popover-text-muted: TODO;
-  --gds-color-popover-item-hover-bg: TODO;
-  --gds-color-focus-ring: TODO;
-  --gds-shadow-popover: TODO;
+  --gds-color-focus-ring: #60a5fa;
+  --gds-shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+  --gds-color-popover-surface: var(--gds-color-ink);
+  --gds-color-popover-border: color-mix(in srgb, var(--gds-color-paper) 16%, transparent);
+  --gds-color-popover-text: var(--gds-color-paper);
+  --gds-color-popover-text-muted: color-mix(in srgb, var(--gds-color-paper) 62%, transparent);
+  --gds-color-popover-item-hover-bg: color-mix(in srgb, var(--gds-color-paper) 10%, transparent);
+  --gds-color-button-primary-bg: var(--gds-color-paper);
+  --gds-color-button-primary-text: var(--gds-color-ink);
+  --gds-color-button-primary-bg-hover: color-mix(in srgb, var(--gds-color-paper) 88%, transparent);
+  --gds-color-button-ghost-text: var(--gds-color-paper);
+  --gds-color-button-ghost-border: color-mix(in srgb, var(--gds-color-paper) 22%, transparent);
+  --gds-color-button-ghost-bg-hover: color-mix(in srgb, var(--gds-color-paper) 10%, transparent);
   }
 }
 
 [data-color-scheme="dark"] {
-  --gds-color-popover-surface: TODO;
-  --gds-color-popover-border: TODO;
-  --gds-color-popover-text: TODO;
-  --gds-color-popover-text-muted: TODO;
-  --gds-color-popover-item-hover-bg: TODO;
-  --gds-color-focus-ring: TODO;
-  --gds-shadow-popover: TODO;
+  --gds-color-focus-ring: #60a5fa;
+  --gds-shadow-popover: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+  --gds-color-popover-surface: var(--gds-color-ink);
+  --gds-color-popover-border: color-mix(in srgb, var(--gds-color-paper) 16%, transparent);
+  --gds-color-popover-text: var(--gds-color-paper);
+  --gds-color-popover-text-muted: color-mix(in srgb, var(--gds-color-paper) 62%, transparent);
+  --gds-color-popover-item-hover-bg: color-mix(in srgb, var(--gds-color-paper) 10%, transparent);
+  --gds-color-button-primary-bg: var(--gds-color-paper);
+  --gds-color-button-primary-text: var(--gds-color-ink);
+  --gds-color-button-primary-bg-hover: color-mix(in srgb, var(--gds-color-paper) 88%, transparent);
+  --gds-color-button-ghost-text: var(--gds-color-paper);
+  --gds-color-button-ghost-border: color-mix(in srgb, var(--gds-color-paper) 22%, transparent);
+  --gds-color-button-ghost-bg-hover: color-mix(in srgb, var(--gds-color-paper) 10%, transparent);
 }
 
 [data-color-scheme="light"] {
-  --gds-color-popover-surface: TODO;
-  --gds-color-popover-border: TODO;
-  --gds-color-popover-text: TODO;
-  --gds-color-popover-text-muted: TODO;
-  --gds-color-popover-item-hover-bg: TODO;
-  --gds-color-focus-ring: TODO;
-  --gds-shadow-popover: TODO;
+  --gds-color-focus-ring: #3b82f6;
+  --gds-shadow-popover: 0 10px 15px -3px rgb(35 31 32 / 0.10), 0 4px 6px -4px rgb(35 31 32 / 0.10);
+  --gds-color-popover-surface: var(--gds-color-paper);
+  --gds-color-popover-border: color-mix(in srgb, var(--gds-color-ink) 12%, transparent);
+  --gds-color-popover-text: var(--gds-color-ink);
+  --gds-color-popover-text-muted: color-mix(in srgb, var(--gds-color-ink) 62%, transparent);
+  --gds-color-popover-item-hover-bg: color-mix(in srgb, var(--gds-color-ink) 6%, transparent);
+  --gds-color-button-primary-bg: var(--gds-color-ink);
+  --gds-color-button-primary-text: var(--gds-color-paper);
+  --gds-color-button-primary-bg-hover: color-mix(in srgb, var(--gds-color-ink) 88%, transparent);
+  --gds-color-button-ghost-text: var(--gds-color-ink);
+  --gds-color-button-ghost-border: color-mix(in srgb, var(--gds-color-ink) 18%, transparent);
+  --gds-color-button-ghost-bg-hover: color-mix(in srgb, var(--gds-color-ink) 6%, transparent);
 }

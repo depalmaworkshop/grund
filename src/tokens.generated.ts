@@ -5,89 +5,163 @@
 
 export const generated = {
   "color": {
+    "ink": "#231f20",
+    "paper": "#f5f3f2",
     "brand": {
       "tobacco": "#E59500"
     },
     "popover": {
-      "surface": "TODO",
-      "border": "TODO",
-      "text": "TODO",
-      "text-muted": "TODO",
-      "item-hover-bg": "TODO"
+      "surface": "#f5f3f2",
+      "border": "color-mix(in srgb, #231f20 12%, transparent)",
+      "text": "#231f20",
+      "text-muted": "color-mix(in srgb, #231f20 62%, transparent)",
+      "item-hover-bg": "color-mix(in srgb, #231f20 6%, transparent)"
     },
-    "focus-ring": "TODO"
+    "focus-ring": "#3b82f6",
+    "button": {
+      "primary": {
+        "bg": "#231f20",
+        "text": "#f5f3f2",
+        "bg-hover": "color-mix(in srgb, #231f20 88%, transparent)"
+      },
+      "ghost": {
+        "text": "#231f20",
+        "border": "color-mix(in srgb, #231f20 18%, transparent)",
+        "bg-hover": "color-mix(in srgb, #231f20 6%, transparent)"
+      }
+    }
   },
   "font": {
     "family": {
       "sans": "var(--font-geist-sans)"
     },
     "popover": {
-      "size": "TODO",
-      "weight": "TODO"
+      "size": "14px",
+      "weight": "500"
+    },
+    "button": {
+      "size": "14px",
+      "weight": "500"
     }
   },
   "space": {
     "popover": {
-      "padding": "TODO",
-      "item-x": "TODO",
-      "item-y": "TODO",
-      "gap": "TODO"
+      "padding": "12px",
+      "item-x": "12px",
+      "item-y": "8px",
+      "gap": "4px"
+    },
+    "button": {
+      "padding-x": "16px",
+      "padding-y": "8px",
+      "gap": "8px"
     }
   },
   "radius": {
-    "popover": "TODO",
-    "popover-item": "TODO"
+    "popover": "8px",
+    "popover-item": "6px",
+    "button": "6px"
   },
   "shadow": {
-    "popover": "TODO"
+    "popover": "0 10px 15px -3px rgb(35 31 32 / 0.10), 0 4px 6px -4px rgb(35 31 32 / 0.10)"
   },
   "popover": {
-    "background": "TODO",
-    "border-color": "TODO",
-    "text-color": "TODO",
-    "radius": "TODO",
-    "padding": "TODO",
-    "shadow": "TODO",
+    "background": "#f5f3f2",
+    "border-color": "color-mix(in srgb, #231f20 12%, transparent)",
+    "text-color": "#231f20",
+    "radius": "8px",
+    "padding": "12px",
+    "shadow": "0 10px 15px -3px rgb(35 31 32 / 0.10), 0 4px 6px -4px rgb(35 31 32 / 0.10)",
     "item": {
-      "padding-x": "TODO",
-      "padding-y": "TODO",
-      "radius": "TODO",
-      "hover-bg": "TODO"
+      "padding-x": "12px",
+      "padding-y": "8px",
+      "radius": "6px",
+      "hover-bg": "color-mix(in srgb, #231f20 6%, transparent)"
+    }
+  },
+  "button": {
+    "radius": "6px",
+    "padding-x": "16px",
+    "padding-y": "8px",
+    "gap": "8px",
+    "font-size": "14px",
+    "font-weight": "500",
+    "primary": {
+      "background": "#231f20",
+      "text-color": "#f5f3f2",
+      "background-hover": "color-mix(in srgb, #231f20 88%, transparent)"
+    },
+    "ghost": {
+      "text-color": "#231f20",
+      "border-color": "color-mix(in srgb, #231f20 18%, transparent)",
+      "background-hover": "color-mix(in srgb, #231f20 6%, transparent)"
     }
   }
 } as const;
 
 export const generatedStatus: Record<
   string,
-  { token: "confirmed" | "draft"; value: "set" | "placeholder" | "todo" }
+  { token: "confirmed" | "draft"; value: "set" | "candidate" | "placeholder" | "todo" }
 > = {
+  "color.ink": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "color.paper": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
   "color.brand.tobacco": {
     "token": "confirmed",
     "value": "set"
   },
   "color.popover.surface": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "color.popover.border": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "color.popover.text": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "color.popover.text-muted": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "color.popover.item-hover-bg": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "color.focus-ring": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
+  },
+  "color.button.primary.bg": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "color.button.primary.text": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "color.button.primary.bg-hover": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "color.button.ghost.text": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "color.button.ghost.border": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "color.button.ghost.bg-hover": {
+    "token": "confirmed",
+    "value": "candidate"
   },
   "font.family.sans": {
     "token": "confirmed",
@@ -95,79 +169,151 @@ export const generatedStatus: Record<
   },
   "font.popover.size": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "font.popover.weight": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
+  },
+  "font.button.size": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "font.button.weight": {
+    "token": "confirmed",
+    "value": "candidate"
   },
   "space.popover.padding": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "space.popover.item-x": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "space.popover.item-y": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "space.popover.gap": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
+  },
+  "space.button.padding-x": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "space.button.padding-y": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "space.button.gap": {
+    "token": "confirmed",
+    "value": "set"
   },
   "radius.popover": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "radius.popover-item": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
+  },
+  "radius.button": {
+    "token": "confirmed",
+    "value": "set"
   },
   "shadow.popover": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.background": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "popover.border-color": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "popover.text-color": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
   },
   "popover.radius": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.padding": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.shadow": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.item.padding-x": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.item.padding-y": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.item.radius": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "set"
   },
   "popover.item.hover-bg": {
     "token": "confirmed",
-    "value": "todo"
+    "value": "candidate"
+  },
+  "button.radius": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "button.padding-x": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "button.padding-y": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "button.gap": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "button.font-size": {
+    "token": "confirmed",
+    "value": "set"
+  },
+  "button.font-weight": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "button.primary.background": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "button.primary.text-color": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "button.primary.background-hover": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "button.ghost.text-color": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "button.ghost.border-color": {
+    "token": "confirmed",
+    "value": "candidate"
+  },
+  "button.ghost.background-hover": {
+    "token": "confirmed",
+    "value": "candidate"
   }
 };
 

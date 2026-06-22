@@ -21,19 +21,30 @@ const TRANSFORMS = ["attribute/cti", "name/kebab"];
 
 // Per-token maturity, two dimensions:
 //   token: is the slot itself decided?  confirmed | draft
-//   value: is the value defined?         set | placeholder | todo
-// Explicit `$extensions["com.grund.status"]` wins; otherwise the token defaults
-// to confirmed and the value is derived (a `TODO` value is todo, else set).
+//   value: is the value defined?         set | candidate | placeholder | todo
+// candidate = a real proposed value under active review; placeholder = a
+// temporary stand-in not claimed as the answer. Explicit
+// `$extensions["com.grund.status"]` wins; otherwise the token defaults to
+// confirmed and the value is derived (a `TODO` value is todo, else set).
+const VALUE_STATUSES = ["set", "candidate", "placeholder", "todo"];
 const statusOf = (t) => {
   const ext = t.$extensions?.["com.grund.status"] ?? {};
   const token = ext.token === "draft" ? "draft" : "confirmed";
-  const value =
-    ext.value === "set" || ext.value === "placeholder" || ext.value === "todo"
-      ? ext.value
-      : t.$value === "TODO"
-        ? "todo"
-        : "set";
+  const value = VALUE_STATUSES.includes(ext.value)
+    ? ext.value
+    : t.$value === "TODO"
+      ? "todo"
+      : "set";
   return { token, value };
+};
+
+// A token whose original value is a single reference (`{a.b.c}`) inherits the
+// maturity of what it points at — so a component token wiring to a `candidate`
+// semantic reads as `candidate`, not `set`. Returns the dotted ref path or null.
+const refPathOf = (t) => {
+  const ov = t.original?.$value;
+  const m = typeof ov === "string" ? ov.match(/^\{([^}]+)\}$/) : null;
+  return m ? m[1] : null;
 };
 
 const HEADER = `/**
@@ -82,9 +93,12 @@ const darkPaths = new Set(
 );
 const inDark = (t) => darkPaths.has(t.path.join("."));
 
-const rootLines = cssVars(light, light.allTokens, true); // semantics reference primitives
-const darkLines = cssVars(dark, dark.allTokens.filter(inDark), false); // literal overrides
-const lightLines = cssVars(light, light.allTokens.filter(inDark), false);
+// outputReferences keeps the var() link (e.g. a color-mix wash stays tied to
+// var(--gds-color-ink) instead of being flattened to a literal triplet) in the
+// override blocks as well as :root.
+const rootLines = cssVars(light, light.allTokens, true);
+const darkLines = cssVars(dark, dark.allTokens.filter(inDark), true);
+const lightLines = cssVars(light, light.allTokens.filter(inDark), true);
 
 const css = `${HEADER}
 :root {
@@ -121,14 +135,27 @@ function nest(allTokens) {
 
 // Maturity status keyed by dot-path, so the gallery can label each token.
 const status = {};
-for (const t of light.allTokens) status[t.path.join(".")] = statusOf(t);
+const refs = {}; // path → referenced path, for pure-reference tokens without explicit status
+for (const t of light.allTokens) {
+  const path = t.path.join(".");
+  status[path] = statusOf(t);
+  const ref = refPathOf(t);
+  if (ref && !t.$extensions?.["com.grund.status"]) refs[path] = ref;
+}
+// Propagate referenced status into pure-reference tokens. Iterate to a fixpoint
+// so chains (component → semantic → primitive) resolve regardless of order.
+for (let i = 0; i < VALUE_STATUSES.length + 2; i++) {
+  for (const [path, ref] of Object.entries(refs)) {
+    if (status[ref]) status[path] = status[ref];
+  }
+}
 
 const ts = `${HEADER}
 export const generated = ${JSON.stringify(nest(light.allTokens), null, 2)} as const;
 
 export const generatedStatus: Record<
   string,
-  { token: "confirmed" | "draft"; value: "set" | "placeholder" | "todo" }
+  { token: "confirmed" | "draft"; value: "set" | "candidate" | "placeholder" | "todo" }
 > = ${JSON.stringify(status, null, 2)};
 
 export default generated;

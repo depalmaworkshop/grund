@@ -1,34 +1,60 @@
 {
-  "$description": "Default-theme semantic tokens. Slots are the structure we know the Share/options-popover Pattern needs; values are TODO until defined deliberately (see work references for the harvested starting points).",
+  "$description": "Default-theme semantic tokens. Slots are the structure the Share/options-popover Pattern + Button need. Colours are CANDIDATE values harvested from the live sites (under review, may change); the convergent structural values (radius/space/type/shadow) are SET. Dark-scheme overrides live in semantics.dark.json.",
   "color": {
     "popover": {
-      "surface":       { "$value": "TODO", "$type": "color" },
-      "border":        { "$value": "TODO", "$type": "color" },
-      "text":          { "$value": "TODO", "$type": "color" },
-      "text-muted":    { "$value": "TODO", "$type": "color" },
-      "item-hover-bg": { "$value": "TODO", "$type": "color" }
+      "surface":       { "$value": "{color.paper}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "border":        { "$value": "color-mix(in srgb, {color.ink} 12%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "text":          { "$value": "{color.ink}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "text-muted":    { "$value": "color-mix(in srgb, {color.ink} 62%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+      "item-hover-bg": { "$value": "color-mix(in srgb, {color.ink} 6%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
     },
-    "focus-ring":      { "$value": "TODO", "$type": "color" }
+    "focus-ring":      { "$value": "#3b82f6", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+    "button": {
+      "primary": {
+        "bg":       { "$value": "{color.ink}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "text":     { "$value": "{color.paper}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "bg-hover": { "$value": "color-mix(in srgb, {color.ink} 88%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
+      },
+      "ghost": {
+        "text":     { "$value": "{color.ink}", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "border":   { "$value": "color-mix(in srgb, {color.ink} 18%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } },
+        "bg-hover": { "$value": "color-mix(in srgb, {color.ink} 6%, transparent)", "$type": "color", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
+      }
+    }
   },
   "space": {
     "popover": {
-      "padding": { "$value": "TODO", "$type": "dimension" },
-      "item-x":  { "$value": "TODO", "$type": "dimension" },
-      "item-y":  { "$value": "TODO", "$type": "dimension" },
-      "gap":     { "$value": "TODO", "$type": "dimension" }
+      "padding": { "$value": "12px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "item-x":  { "$value": "12px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "item-y":  { "$value": "8px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "gap":     { "$value": "4px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } }
+    },
+    "button": {
+      "padding-x": { "$value": "16px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "padding-y": { "$value": "8px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "gap":       { "$value": "8px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } }
     }
   },
   "radius": {
-    "popover":      { "$value": "TODO", "$type": "dimension" },
-    "popover-item": { "$value": "TODO", "$type": "dimension" }
+    "popover":      { "$value": "8px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+    "popover-item": { "$value": "6px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+    "button":       { "$value": "6px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } }
   },
   "font": {
     "popover": {
-      "size":   { "$value": "TODO", "$type": "dimension" },
-      "weight": { "$value": "TODO", "$type": "fontWeight" }
+      "size":   { "$value": "14px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "weight": { "$value": "500", "$type": "fontWeight", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } }
+    },
+    "button": {
+      "size":   { "$value": "14px", "$type": "dimension", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } } },
+      "weight": { "$value": "500", "$type": "fontWeight", "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } } }
     }
   },
   "shadow": {
-    "popover": { "$value": "TODO", "$type": "shadow" }
+    "popover": {
+      "$value": "0 10px 15px -3px rgb(35 31 32 / 0.10), 0 4px 6px -4px rgb(35 31 32 / 0.10)",
+      "$type": "shadow",
+      "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } }
+    }
   }
 }
