@@ -1,0 +1,46 @@
+/* Button — consumes Grund's --gds-button-* component tokens (mapped from the
+   semantic layer). This is the consumer-side styling the design system expects:
+   Grund ships the tokens, the app maps them to real CSS properties. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gds-button-gap);
+  border: 1px solid transparent;
+  border-radius: var(--gds-button-radius);
+  padding: var(--gds-button-padding-y) var(--gds-button-padding-x);
+  font-size: var(--gds-button-font-size);
+  font-weight: var(--gds-button-font-weight);
+  line-height: 1.25;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--gds-color-focus-ring);
+  outline-offset: 2px;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: var(--gds-button-primary-background);
+  color: var(--gds-button-primary-text-color);
+}
+.primary:hover:not(:disabled) {
+  background: var(--gds-button-primary-background-hover);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--gds-button-ghost-text-color);
+  border-color: var(--gds-button-ghost-border-color);
+}
+.ghost:hover:not(:disabled) {
+  background: var(--gds-button-ghost-background-hover);
+}

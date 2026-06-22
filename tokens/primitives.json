@@ -1,11 +1,23 @@
 {
   "color": {
+    "ink": {
+      "$value": "#231f20",
+      "$type": "color",
+      "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } },
+      "$description": "Near-black neutral anchor (theme-neutral primitive). Warm, not pure black. Value is a candidate — may change in the real palette pass."
+    },
+    "paper": {
+      "$value": "#f5f3f2",
+      "$type": "color",
+      "$extensions": { "com.grund.status": { "token": "confirmed", "value": "candidate" } },
+      "$description": "Near-white neutral anchor (theme-neutral primitive). Warm, not pure white. Value is a candidate — may change in the real palette pass."
+    },
     "brand": {
       "tobacco": {
         "$value": "#E59500",
         "$type": "color",
         "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } },
-        "$description": "Confirmed DePalma brand accent (tobacco). Earmarked for the Button primary action."
+        "$description": "Confirmed DePalma brand accent (tobacco). A logo / identity accent — not a component fill colour."
       }
     }
   },

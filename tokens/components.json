@@ -12,5 +12,23 @@
       "radius":     { "$value": "{radius.popover-item}", "$type": "dimension" },
       "hover-bg":   { "$value": "{color.popover.item-hover-bg}", "$type": "color" }
     }
+  },
+  "button": {
+    "radius":       { "$value": "{radius.button}", "$type": "dimension" },
+    "padding-x":    { "$value": "{space.button.padding-x}", "$type": "dimension" },
+    "padding-y":    { "$value": "{space.button.padding-y}", "$type": "dimension" },
+    "gap":          { "$value": "{space.button.gap}", "$type": "dimension" },
+    "font-size":    { "$value": "{font.button.size}", "$type": "dimension" },
+    "font-weight":  { "$value": "{font.button.weight}", "$type": "fontWeight" },
+    "primary": {
+      "background":       { "$value": "{color.button.primary.bg}", "$type": "color" },
+      "text-color":       { "$value": "{color.button.primary.text}", "$type": "color" },
+      "background-hover": { "$value": "{color.button.primary.bg-hover}", "$type": "color" }
+    },
+    "ghost": {
+      "text-color":       { "$value": "{color.button.ghost.text}", "$type": "color" },
+      "border-color":     { "$value": "{color.button.ghost.border}", "$type": "color" },
+      "background-hover": { "$value": "{color.button.ghost.bg-hover}", "$type": "color" }
+    }
   }
 }
