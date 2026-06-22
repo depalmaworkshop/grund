@@ -1,0 +1,22 @@
+{
+  "color": {
+    "brand": {
+      "tobacco": {
+        "$value": "#E59500",
+        "$type": "color",
+        "$extensions": { "com.grund.status": { "token": "confirmed", "value": "set" } },
+        "$description": "Confirmed DePalma brand accent (tobacco). Earmarked for the Button primary action."
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "sans": {
+        "$value": "var(--font-geist-sans)",
+        "$type": "fontFamily",
+        "$extensions": { "com.grund.status": { "token": "confirmed", "value": "placeholder" } },
+        "$description": "Confirmed slot (the sans typeface). Value is a placeholder (Geist) pending the type decision."
+      }
+    }
+  }
+}

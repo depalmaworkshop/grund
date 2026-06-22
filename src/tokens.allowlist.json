@@ -1,0 +1,19 @@
+{
+  "overridableSemantics": [
+    "--gds-color-focus-ring",
+    "--gds-color-popover-border",
+    "--gds-color-popover-item-hover-bg",
+    "--gds-color-popover-surface",
+    "--gds-color-popover-text",
+    "--gds-color-popover-text-muted",
+    "--gds-font-popover-size",
+    "--gds-font-popover-weight",
+    "--gds-radius-popover",
+    "--gds-radius-popover-item",
+    "--gds-shadow-popover",
+    "--gds-space-popover-gap",
+    "--gds-space-popover-item-x",
+    "--gds-space-popover-item-y",
+    "--gds-space-popover-padding"
+  ]
+}
