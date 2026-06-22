@@ -29,6 +29,7 @@ import {
 import { SchemeToggle } from "./_components/SchemeToggle";
 import { ButtonShowcase } from "./_components/ButtonShowcase";
 import { OptionsPopoverDemo } from "./_components/OptionsPopoverDemo";
+import { HoverCardDemo } from "./_components/HoverCardDemo";
 
 type Section = {
   title: string;
@@ -153,12 +154,23 @@ export default function Page() {
       <div className="mt-12">
         <h2 className="mb-1 text-xl font-bold tracking-tight">Patterns</h2>
         <p className="mb-4 text-[13px] text-muted">
-          Content-less compositions. The Share / options-popover Pattern: a ghost
-          Button trigger opens a floating, dismissable menu of option rows.
+          Content-less compositions, built on a shared FloatingLayer primitive
+          (portal + viewport-clamped positioning + dismiss).
         </p>
-        <ShowcaseCard>
-          <OptionsPopoverDemo />
-        </ShowcaseCard>
+        <div className="grid gap-4">
+          <ShowcaseCard>
+            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-muted">
+              Options popover — click a ghost Button for a menu of options
+            </p>
+            <OptionsPopoverDemo />
+          </ShowcaseCard>
+          <ShowcaseCard>
+            <p className="mb-3 text-[12px] font-semibold uppercase tracking-wide text-muted">
+              Hover card — preview a link on hover / focus
+            </p>
+            <HoverCardDemo />
+          </ShowcaseCard>
+        </div>
       </div>
     </main>
   );

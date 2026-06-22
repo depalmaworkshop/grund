@@ -1,0 +1,39 @@
+/* Hover card — a link-preview popover. Reuses Grund's --gds-popover-* token set
+   (same surface/border/shadow as the options popover) and is the first consumer
+   of --gds-popover-text-muted, for the preview line. */
+.trigger {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.trigger:focus-visible {
+  outline: 2px solid var(--gds-color-focus-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 12rem;
+  max-width: 20rem;
+  background: var(--gds-popover-background);
+  color: var(--gds-popover-text-color);
+  border: 1px solid var(--gds-popover-border-color);
+  border-radius: var(--gds-popover-radius);
+  padding: var(--gds-popover-padding);
+  box-shadow: var(--gds-popover-shadow);
+  font-size: var(--gds-font-popover-size);
+}
+
+.title {
+  font-weight: var(--gds-font-popover-weight);
+  color: var(--gds-popover-text-color);
+}
+
+.preview {
+  color: var(--gds-popover-text-muted);
+  line-height: 1.4;
+}
