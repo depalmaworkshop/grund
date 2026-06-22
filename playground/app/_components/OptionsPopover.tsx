@@ -1,15 +1,9 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { createPortal } from "react-dom";
 import { Button } from "./Button";
+import { FloatingLayer } from "./FloatingLayer";
 import styles from "./OptionsPopover.module.css";
 
 export type OptionItem = {
@@ -26,43 +20,16 @@ export interface OptionsPopoverProps {
   options: OptionItem[];
 }
 
-const GAP = 8; // px below the trigger
-const MARGIN = 8; // min viewport margin
-
-// The first real Grund Pattern: a content-less options popover. A ghost Button
-// trigger opens a floating panel of option rows. Portal + fixed positioning +
-// dismiss-on-(scroll/Escape/outside) follow a hover-card's mechanics, adapted
-// from hover to click + menu semantics (so touch works without a hover card's
-// touch opt-out — a tap just opens it).
+// The first Grund Pattern: a content-less options popover. A ghost Button trigger
+// opens a floating menu of option rows. Portal + positioning + the hard dismissers
+// come from FloatingLayer; this component owns the click trigger and the menu
+// semantics (roles, focus-first/return, arrow-key roving focus).
 export function OptionsPopover({ label, icon, options }: OptionsPopoverProps) {
   const [open, setOpen] = useState(false);
-  const [coords, setCoords] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
   const close = useCallback(() => setOpen(false), []);
-
-  // Position the panel below the trigger, clamped into the viewport (flips above
-  // when there isn't room below). Runs before paint and on every open.
-  useLayoutEffect(() => {
-    if (!open) return;
-    const trigger = triggerRef.current;
-    const panel = panelRef.current;
-    if (!trigger || !panel) return;
-    const t = trigger.getBoundingClientRect();
-    const p = panel.getBoundingClientRect();
-    let top = t.bottom + GAP;
-    if (top + p.height > window.innerHeight - MARGIN) {
-      const above = t.top - GAP - p.height;
-      if (above >= MARGIN) top = above;
-      else top = Math.max(MARGIN, window.innerHeight - MARGIN - p.height);
-    }
-    const left = Math.min(
-      Math.max(MARGIN, t.left),
-      Math.max(MARGIN, window.innerWidth - MARGIN - p.width)
-    );
-    setCoords({ top, left });
-  }, [open]);
 
   // Move focus into the menu on open, restore it to the trigger on close.
   useEffect(() => {
@@ -71,32 +38,6 @@ export function OptionsPopover({ label, icon, options }: OptionsPopoverProps) {
     first?.focus();
     return () => triggerRef.current?.focus();
   }, [open]);
-
-  // Dismiss on scroll, resize, Escape, and outside pointer — the hover-card
-  // dismiss contract, minus the touch opt-out (this is click-driven).
-  useEffect(() => {
-    if (!open) return;
-    const onScroll = () => close();
-    const onResize = () => close();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-    };
-    const onPointerDown = (e: PointerEvent) => {
-      const target = e.target as Node;
-      if (panelRef.current?.contains(target) || triggerRef.current?.contains(target)) return;
-      close();
-    };
-    window.addEventListener("scroll", onScroll, true);
-    window.addEventListener("resize", onResize);
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("pointerdown", onPointerDown, true);
-    return () => {
-      window.removeEventListener("scroll", onScroll, true);
-      window.removeEventListener("resize", onResize);
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("pointerdown", onPointerDown, true);
-    };
-  }, [open, close]);
 
   // Roving focus between items with the arrow keys / Home / End.
   function onMenuKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
@@ -137,32 +78,29 @@ export function OptionsPopover({ label, icon, options }: OptionsPopoverProps) {
       >
         {label}
       </Button>
-      {open &&
-        typeof document !== "undefined" &&
-        createPortal(
-          <div
-            ref={panelRef}
-            role="menu"
-            aria-label={label}
-            className={styles.panel}
-            style={{ top: coords.top, left: coords.left }}
-            onKeyDown={onMenuKeyDown}
+      <FloatingLayer
+        anchorRef={triggerRef}
+        panelRef={panelRef}
+        open={open}
+        onDismiss={close}
+        role="menu"
+        aria-label={label}
+        className={styles.panel}
+        onKeyDown={onMenuKeyDown}
+      >
+        {options.map((option) => (
+          <button
+            key={option.label}
+            role="menuitem"
+            type="button"
+            className={styles.item}
+            onClick={() => select(option)}
           >
-            {options.map((option) => (
-              <button
-                key={option.label}
-                role="menuitem"
-                type="button"
-                className={styles.item}
-                onClick={() => select(option)}
-              >
-                {option.icon}
-                {option.label}
-              </button>
-            ))}
-          </div>,
-          document.body
-        )}
+            {option.icon}
+            {option.label}
+          </button>
+        ))}
+      </FloatingLayer>
     </>
   );
 }
