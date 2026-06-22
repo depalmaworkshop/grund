@@ -1,16 +1,16 @@
 ---
 component: Button
 category: forms-and-input
-status: planning
+status: in-progress
 priority: high
-version: wip-2
+version: wip-3
 created: 2025-12-27
-updated: 2026-01-21T13:26
+updated: 2026-06-22
 cedar_url: https://cedar.rei.com/components/button
 carbon_url: https://carbondesignsystem.com/components/button/usage
 atlassian_url: https://atlassian.design/components/button
 website_path: TBD
-uses_tokens: false
+uses_tokens: true
 has_variants: true
 responsive: true
 token_prefix: gds-button
@@ -24,6 +24,15 @@ token_categories:
 ---
 
 # Button
+
+> [!NOTE]
+> **Implemented (2026-06-22):** the `primary` and `ghost` variants ship as a real
+> React component in the playground, consuming the `--gds-button-*` tokens
+> (colours at **candidate** maturity, structural values **set**). It is the
+> trigger for the [options-popover pattern](../patterns/options-popover.md). The
+> remaining variants (secondary / tertiary / danger), sizes, and the loading
+> state below are still planned — the sections that follow are the design
+> backlog, not the current surface.
 
 ## Overview
 

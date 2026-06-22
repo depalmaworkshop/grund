@@ -1,0 +1,43 @@
+/* Options popover panel + items — consumes Grund's --gds-popover-* component
+   tokens and the popover semantic type tokens. */
+.panel {
+  position: fixed;
+  z-index: 5000;
+  min-width: 12rem;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gds-space-popover-gap);
+  background: var(--gds-popover-background);
+  color: var(--gds-popover-text-color);
+  border: 1px solid var(--gds-popover-border-color);
+  border-radius: var(--gds-popover-radius);
+  padding: var(--gds-popover-padding);
+  box-shadow: var(--gds-popover-shadow);
+  font-size: var(--gds-font-popover-size);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  text-align: left;
+  padding: var(--gds-popover-item-padding-y) var(--gds-popover-item-padding-x);
+  border: 0;
+  border-radius: var(--gds-popover-item-radius);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: var(--gds-font-popover-weight);
+  cursor: pointer;
+}
+
+.item:hover {
+  background: var(--gds-popover-item-hover-bg);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--gds-color-focus-ring);
+  outline-offset: -2px;
+}
