@@ -22,12 +22,13 @@ const firstLength = (arr: readonly unknown[]): string | undefined =>
 // Counting (for the per-section status line + the page-level TODO summary)
 // -----------------------------------------------------------------------------
 
-export function countLeaves(value: unknown): { total: number; todo: number } {
-  if (value === null || value === undefined)
-    return { total: 1, todo: 0 };
+export type Count = { total: number; todo: number };
+
+export function countLeaves(value: unknown): Count {
+  if (value === null || value === undefined) return { total: 1, todo: 0 };
   if (Array.isArray(value)) return { total: 1, todo: isTodo(value[0]) ? 1 : 0 };
   if (typeof value === "object") {
-    return Object.values(value as Record<string, unknown>).reduce(
+    return Object.values(value as Record<string, unknown>).reduce<Count>(
       (acc, v) => {
         const c = countLeaves(v);
         return { total: acc.total + c.total, todo: acc.todo + c.todo };
